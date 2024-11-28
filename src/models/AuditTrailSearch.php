@@ -5,6 +5,7 @@ namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
+use yii\data\ArrayDataProvider;
 use yii\data\ActiveDataProvider;
 
 /**
