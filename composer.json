@@ -33,7 +33,7 @@
     "yiisoft/yii2-debug": ">=2.1.0 <2.2.0",
     "2amigos/yii2-chartjs-widget": ">=2.0.1 <3.0.0",
     "phpspec/php-diff": "1.*",
-    "yidas/yii2-fontawesome": "~2.0.0"
+    "yidas/yii2-fontawesome": "^5.0"
   },
   "suggest": {
     "php-mime-mail-parser/php-mime-mail-parser": "Allows better displaying of logged emails."
