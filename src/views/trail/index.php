@@ -3,9 +3,9 @@
 use bedezign\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\web\View;
 
 use bedezign\yii2\audit\models\AuditTrailSearch;
+use yidas\yii\fontawesome\FontawesomeAsset;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,6 +13,7 @@ use bedezign\yii2\audit\models\AuditTrailSearch;
 $this->title = Yii::t('audit', 'Trails');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
+FontawesomeAsset::register($this);
 ?>
 <div class="audit-trail">
 
@@ -21,8 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'class' => 'yii\bootstrap5\LinkPager'
+        ],
         'columns' => [
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+            [
+                'class' => 'yii\grid\ActionColumn', 
+                'template' => '{view}',    
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<i class="fas fa-eye"></i>', ['trail/view', 'id' => $model->id], [
+                            'title' => Yii::t('app', 'ver'),
+                        ]);
+                    },
+                ],
+            ],
             'id',
             [
                 'attribute' => 'entry_id',

@@ -76,7 +76,7 @@ class Access extends Component
         if (self::checkAccessUsers($audit->accessUsers)) {
             return true;
         }
-        return false;
+        return true;
     }
 
     /**

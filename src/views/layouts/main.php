@@ -8,7 +8,7 @@ use bedezign\yii2\audit\web\JSLoggingAsset;
 use bedezign\yii2\audit\components\web\Helper as WebHelper;
 use yii\debug\DebugAsset;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
+use yii\bootstrap5\Breadcrumbs;
 
 //DebugAsset::register($this);
 JSLoggingAsset::register($this)
@@ -31,7 +31,7 @@ JSLoggingAsset::register($this)
 WebHelper::bootstrap('NavBar', 'begin', [
     'brandLabel' => Yii::t('audit', 'Audit'),
     'brandUrl' => ['default/index'],
-    'options' => ['class' => 'navbar-default navbar-fixed-top navbar-fluid'],
+    'options' => ['class' => 'navbar navbar-expand-lg border-bottom fixed-top bg-light'],
     'innerContainerOptions' => ['class' => 'container-fluid'],
 ]);
 
@@ -46,7 +46,9 @@ foreach (Audit::getInstance()->panels as $panel) {
     }
     $items[] = ['label' => $panel->getName(), 'url' => $indexUrl];
 }
-
+unset($items[1]);
+unset($items[3]);
+unset($items[4]);
 echo WebHelper::bootstrap('Nav', 'widget', [
     'items' => $items,
     'options' => ['class' => 'navbar-nav'],
@@ -72,10 +74,7 @@ WebHelper::bootstrap('NavBar', 'end');
     <?= $content ?>
 
     <footer class="text-center">
-        <hr>
-        <?= date('Y-m-d H:i:s'); ?>
-        <br>
-        <?= $this->render('@bedezign/yii2/audit/views/_audit_entry_id', ['style' => '']); ?>
+
     </footer>
 </div>
 

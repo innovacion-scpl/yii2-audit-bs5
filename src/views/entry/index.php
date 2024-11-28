@@ -12,6 +12,7 @@ use bedezign\yii2\audit\models\AuditEntrySearch;
 $this->title = Yii::t('audit', 'Entries');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="audit-entry-index">
 
@@ -20,8 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'class' => 'yii\bootstrap5\LinkPager'
+        ],
         'columns' => [
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+            [
+                'class' => 'yii\grid\ActionColumn', 
+                'template' => '{view}',
+            ],
             'id',
             [
                 'attribute' => 'user_id',
@@ -32,18 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            'ip',
-            [
-                'filter' => AuditEntrySearch::methodFilter(),
-                'attribute' => 'request_method',
-            ],
-            [
-                'filter' => [1 => \Yii::t('audit', 'Yes'), 0 => \Yii::t('audit', 'No')],
-                'attribute' => 'ajax',
-                'value' => function($data) {
-                    return $data->ajax ? Yii::t('audit', 'Yes') : Yii::t('audit', 'No');
-                },
-            ],
+            // 'ip',
+            // [
+            //     'filter' => AuditEntrySearch::methodFilter(),
+            //     'attribute' => 'request_method',
+            // ],
+            // [
+            //     'filter' => [1 => \Yii::t('audit', 'Yes'), 0 => \Yii::t('audit', 'No')],
+            //     'attribute' => 'ajax',
+            //     'value' => function($data) {
+            //         return $data->ajax ? Yii::t('audit', 'Yes') : Yii::t('audit', 'No');
+            //     },
+            // ],
             [
                 'class' => 'yii\grid\DataColumn',
                 'attribute' => 'route',
@@ -56,46 +63,49 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) . ' ' . $data->route;
                 },
             ],
-            [
-                'attribute' => 'duration',
-                'format' => 'decimal',
-                'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
-            ],
-            [
-                'attribute' => 'memory_max',
-                'format' => 'shortsize',
-                'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
-            ],
-            [
-                'attribute' => 'trails',
-                'value' => function ($data) {
-                    return $data->getTrails()->count();
-                },
-                'contentOptions' => ['class' => 'text-right'],
-            ],
-            [
-                'attribute' => 'mails',
-                'value' => function ($data) {
-                    return $data->getMails()->count();
-                },
-                'contentOptions' => ['class' => 'text-right'],
-            ],
-            [
-                'attribute' => 'javascripts',
-                'value' => function ($data) {
-                    return $data->getJavascripts()->count();
-                },
-                'contentOptions' => ['class' => 'text-right'],
-            ],
-            [
-                'attribute' => 'errors',
-                'value' => function ($data) {
-                    return $data->getLinkedErrors()->count();
-                },
-                'contentOptions' => ['class' => 'text-right'],
-            ],
+            // [
+            //     'attribute' => 'duration',
+            //     'format' => 'decimal',
+            //     'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
+            // ],
+            // [
+            //     'attribute' => 'memory_max',
+            //     'format' => 'shortsize',
+            //     'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
+            // ],
+            // [
+            //     'attribute' => 'trails',
+            //     'value' => function ($data) {
+            //         return $data->getTrails()->count();
+            //     },
+            //     'contentOptions' => ['class' => 'text-right'],
+            // ],
+            // [
+            //     'attribute' => 'mails',
+            //     'value' => function ($data) {
+            //         return $data->getMails()->count();
+            //     },
+            //     'contentOptions' => ['class' => 'text-right'],
+            // ],
+            // [
+            //     'attribute' => 'javascripts',
+            //     'value' => function ($data) {
+            //         return $data->getJavascripts()->count();
+            //     },
+            //     'contentOptions' => ['class' => 'text-right'],
+            // ],
+            // [
+            //     'attribute' => 'errors',
+            //     'value' => function ($data) {
+            //         return $data->getLinkedErrors()->count();
+            //     },
+            //     'contentOptions' => ['class' => 'text-right'],
+            // ],
             [
                 'attribute' => 'created',
+                'value'     => function($model){
+                    return Yii::$app->formatter->asDateTime($model->created, 'php:d-m-Y H:i:s');
+                },
                 'options' => ['width' => '150px'],
             ],
         ],
